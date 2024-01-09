@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'docker' }
+    agent "any"
     stages {
         stage('clean workspace'){
             steps{
@@ -8,18 +8,18 @@ pipeline {
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/KhajaWorkshopsAtQT/Dec1623.git'
+                git branch: 'main', url: 'https://github.com/goutham3007/Dec1623.git'
             }
         }
         stage('Build docker image') {
             steps {
-                sh "docker image build -t shaikkhajaibrahim/jenkinsdec23workshop:$BUILD_ID ."
+                sh "docker image build -t goutham1999/devseops:$BUILD_ID ."
             }
         }
         stage('Trivy Scan') {
             steps {
                 script {
-                    sh "trivy image --format json -o trivy-report.json shaikkhajaibrahim/jenkinsdec23workshop:$BUILD_ID"
+                    sh "trivy image --format json -o trivy-report.json goutham1999/devseops:$BUILD_ID"
                 }
                 publishHTML([reportName: 'Trivy Vulnerability Report', reportDir: '.', reportFiles: 'trivy-report.json', keepAll: true, alwaysLinkToLastBuild: true, allowMissing: false])
             }
