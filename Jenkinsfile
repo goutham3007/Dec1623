@@ -26,7 +26,7 @@ pipeline {
         }
         stage('publish docker image') {
             steps {
-                sh "docker image push shaikkhajaibrahim/jenkinsdec23workshop:$BUILD_ID"
+                sh "docker image push goutham1999/devseops:$BUILD_ID"
             }
         }
         stage('Ensure kubernetes cluster is up') {
